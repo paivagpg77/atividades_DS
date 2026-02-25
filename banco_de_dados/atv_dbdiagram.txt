@@ -1,0 +1,30 @@
+table Medicos {
+  id uuid [primary key , not null]
+  nome varchar [not null]
+  endereco varchar 
+  telefone varchar [unique, not null]
+  especialidade varchar
+}
+
+table Pacientes {
+  id uuid [primary key]
+  cpf varchar [unique, not null]
+  nome varchar
+  endereco varchar
+  telefone varchar [not null ]
+}
+
+table consultas {
+   id int [primary key]
+   id_medico uuid  [ref: > Medicos.id]
+   id_paciente uuid [ref : > Pacientes.id]
+   data_consulta date
+}
+
+table exames {
+  id int [primary key]
+  cpf_pacientes varchar [ref : > Pacientes.cpf]
+  crm_Medicos varchar [ref :> Medicos.id]
+  nome_exame varchar 
+  
+}
