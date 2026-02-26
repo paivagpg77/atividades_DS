@@ -9,23 +9,29 @@ table Medicos {
 table Pacientes {
   id uuid [primary key]
   cpf varchar [unique, not null]
-  nome varchar
-  endereco varchar
-  telefone varchar [not null ]
+  nome varchar [not null]
+  endereco varchar [not null]
+  telefone varchar [not null]
 }
 
-table consultas {
-   id int [primary key]
+table Dependentes {
+  id uuid [primary key]
+  id_pacientes uuid [ref :> Pacientes.id]
+  nome varchar [not null]
+}
+
+table Consultar {
+   id uuid [primary key]
    id_medico uuid  [ref: > Medicos.id]
    id_paciente uuid [ref : > Pacientes.id]
-   data_consulta date
-   exames_passados varchar 
+   data_consulta date [not null]
+   obs varchar
 }
 
-table exames {
-  id int [primary key]
-  id_pacientes varchar [ref : > Pacientes.id]
-  id_Medicos varchar [ref :> Medicos.id]
-  nome_exame varchar [ref :> consultas.exames_passados]
-  resultado_exame varchar
+table Exames {
+  id uuid [primary key]
+  id_consultar uuid [ref :> Consultar.id]
+  nome varchar [not null]
+  cpf_paciente varchar [ref:> Pacientes.cpf]
+  resultados varchar  
 }
