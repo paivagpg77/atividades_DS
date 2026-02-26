@@ -3,7 +3,7 @@ table Medicos {
   nome varchar [not null]
   endereco varchar 
   telefone varchar [unique, not null]
-  especialidade varchar
+  especialidade varchar [not null]
 }
 
 table Pacientes {
@@ -19,12 +19,13 @@ table consultas {
    id_medico uuid  [ref: > Medicos.id]
    id_paciente uuid [ref : > Pacientes.id]
    data_consulta date
+   exames_passados varchar 
 }
 
 table exames {
   id int [primary key]
-  cpf_pacientes varchar [ref : > Pacientes.cpf]
-  crm_Medicos varchar [ref :> Medicos.id]
-  nome_exame varchar 
-  
+  id_pacientes varchar [ref : > Pacientes.id]
+  id_Medicos varchar [ref :> Medicos.id]
+  nome_exame varchar [ref :> consultas.exames_passados]
+  resultado_exame varchar
 }
