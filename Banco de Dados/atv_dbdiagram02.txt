@@ -1,0 +1,36 @@
+table Pariticipantes {
+  id uuid [primary key]
+  nome varchar [not null]
+  email varchar [not null , unique]
+  cpf varchar [not null , unique]
+  data_nasc varchar [not null , unique]
+}
+
+table Credenciais {
+  id uuid [primary key]
+  id_participantes uuid [ref:> Pariticipantes.id]
+  cod_RFID varchar [unique , not null]
+  status_ativacao boolean [not null , default: true]
+}
+
+table trilha {
+  id uuid [primary key]
+  nome_trilha varchar [not null]
+  descricao varchar [not null]
+  coordenador_responsavel varchar [not null]
+}
+
+table sessoes {
+  id uuid [primary key]
+  sessao uuid [ref:> trilha.id]
+  titulo varchar [not null]
+  horario_inicio datetime [not null]
+  horario_termino datetime [not null]
+  sala varchar [not null]
+}
+
+table agendamento_sessoes {
+  id uuid [primary key]
+  agenda uuid [ref :> sessoes.sessao]
+  inscricao varchar [ref :> Credenciais.cod_RFID]
+}
