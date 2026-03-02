@@ -1,0 +1,60 @@
+table Animal {
+  id uuid [pk]
+  tutor_id uuid [ref:> Tutores.id]
+  nome varchar [not null]
+  especie varchar [not null]
+  raca varchar [not null]
+  data_nasc date [not null]
+  sexo varchar [not null]
+  cor varchar [not null]
+  porte varchar [not null]
+}
+
+table Tutores {
+  id uuid [pk]
+  nome varchar [not null]
+  cpf varchar [not null , unique]
+  telefone varchar [not null]
+  email varchar [not null]
+  endereco varchar [not null]
+}
+
+table Medicos_Veterinarios {
+  id uuid [pk]
+  nome varchar [not null]
+  numero_CRMV varchar [not null , unique]
+  especialidade varchar [not null]
+  telefone varchar [not null]
+  email varchar [not null]
+}
+
+table Consultas {
+  id uuid [pk]
+  medico_da_consulta uuid [ref:> Medicos_Veterinarios.id]
+  animal_consultado varchar [ref:> Animal.id]
+  data_consulta date [not null]
+  hora_consulta varchar [not null]
+  sintomas_observados varchar [not null]
+  diagnostico varchar [not null]
+  obs varchar [not null]
+}
+
+table Tratamentos{
+  id uuid [pk]
+  consulta_id uuid [ref:> Consultas.id]
+  medicamentos varchar [not null]
+  dosagem varchar [not null]
+  duracao_uso varchar [not null]
+  instrucoes varchar [not null]
+}
+
+table Vacinas {
+  id uuid [pk]
+  nome_vacina varchar [not null]
+  fabricante varchar [not null]
+  lote varchar [not null, unique]
+  validade varchar [not null]
+  animal_vacinado varchar [ref:> Animal.id]
+  aplicado_medico varchar [ref:> Medicos_Veterinarios.id]
+}
+
