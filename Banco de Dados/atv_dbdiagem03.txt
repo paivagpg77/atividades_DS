@@ -31,7 +31,7 @@ table Medicos_Veterinarios {
 table Consultas {
   id uuid [pk]
   medico_da_consulta uuid [ref:> Medicos_Veterinarios.id]
-  animal_consultado varchar [ref:> Animal.id]
+  animal_consultado uuid [ref:> Animal.id]
   data_consulta date [not null]
   hora_consulta varchar [not null]
   sintomas_observados varchar [not null]
@@ -50,11 +50,19 @@ table Tratamentos{
 
 table Vacinas {
   id uuid [pk]
-  nome_vacina varchar [not null]
-  fabricante varchar [not null]
-  lote varchar [not null, unique]
-  validade varchar [not null]
-  animal_vacinado varchar [ref:> Animal.id]
-  aplicado_medico varchar [ref:> Medicos_Veterinarios.id]
+  data_aplicacao date [not null]
+  id_medico uuid [ref: > Medicos_Veterinarios.id]
+  id_medicamento uuid [ref:> Medicamento.id]
 }
+
+table Medicamento{
+  id uuid [pk]
+  nome varchar [not null]
+  fab varchar [not null]
+  lote varchar [not null]
+  validade varchar [not null]
+  id_animal uuid [ref:> Animal.id]
+}
+
+
 
